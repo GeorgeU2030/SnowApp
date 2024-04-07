@@ -4,6 +4,7 @@ import userRoutes from "./routes/user.routes.js"
 import directorRoutes from "./routes/director.routes.js"
 import actorRoutes from "./routes/actor.routes.js"
 import movieRoutes from "./routes/movie.routes.js"
+import ratingRoutes from "./routes/rating.routes.js"
 import dotenv from "dotenv"
 
 dotenv.config()
@@ -24,5 +25,6 @@ app.use("/user", userRoutes)
 app.use("/director", directorRoutes)
 app.use("/actor", actorRoutes)
 app.use("/movie", movieRoutes)
+app.use("/rating", ratingRoutes)
 
 app.listen(3000, () => console.log("Server is running"))
