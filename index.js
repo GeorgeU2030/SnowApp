@@ -1,10 +1,13 @@
 import express from "express"
 import mongoose from "mongoose"
+import userRoutes from "./routes/user.routes.js"
 import dotenv from "dotenv"
 
 dotenv.config()
 
 const app = express()
+
+app.use(express.json())
 
 mongoose.connect(process.env.MONGO)
     .then(() => console.log("Connected to MongoDB"))
@@ -13,5 +16,7 @@ mongoose.connect(process.env.MONGO)
 app.get("/", (req, res) => {
     res.send("Backend Snow App")
 })
+
+app.use("/user", userRoutes)
 
 app.listen(3000, () => console.log("Server is running"))
