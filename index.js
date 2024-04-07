@@ -2,6 +2,7 @@ import express from "express"
 import mongoose from "mongoose"
 import userRoutes from "./routes/user.routes.js"
 import directorRoutes from "./routes/director.routes.js"
+import actorRoutes from "./routes/actor.routes.js"
 import dotenv from "dotenv"
 
 dotenv.config()
@@ -20,5 +21,6 @@ app.get("/", (req, res) => {
 
 app.use("/user", userRoutes)
 app.use("/director", directorRoutes)
+app.use("/actor", actorRoutes)
 
 app.listen(3000, () => console.log("Server is running"))
