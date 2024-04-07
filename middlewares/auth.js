@@ -7,7 +7,6 @@ export const auth = (req, res, next) => {
     try {
         token = token.replace('Bearer ', '');
         const verified = jwt.verify(token, process.env.TOKEN_SECRET);
-        console.log("verified: ", verified);
         req.body.loggedUser = verified;
         req.params.id = verified._id;
         next();
