@@ -9,3 +9,22 @@ export const createDirector = async (req, res) => {
         res.status(409).json({ message: error.message });
     }
 }
+
+export const getDirectors = async (req, res) => {
+    try {
+        const directors = await Director.find();
+        res.status(200).json(directors);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}
+
+export const searchDirector = async (req, res) => {
+    try{
+        const search= req.query.search;
+        const directors = await Director.find({name: {$regex: search, $options: 'i'}});
+        res.status(200).json(directors);
+    }catch(error){
+        res.status(404).json({ message: error.message });
+    }
+}
