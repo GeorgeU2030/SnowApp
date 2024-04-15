@@ -20,3 +20,12 @@ export const createMovie = async (req, res) => {
         res.status(409).json({ message: error.message });
     }
 }
+
+export const getRandomMovies = async (req, res) => {
+    try {
+        const movies = await Movie.aggregate([{ $sample: { size: 4 } }]);
+        res.status(200).json(movies);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
