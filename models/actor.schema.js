@@ -7,7 +7,7 @@ const actorSchema = new mongoose.Schema({
     country: { type: String },
     oscars: { type: Number },
     nominations: { type: Number },
-    movies: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Movie' }]
+    movies: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Movie' }],
 });
 
 export default mongoose.model('Actor', actorSchema);
