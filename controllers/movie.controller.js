@@ -29,3 +29,23 @@ export const getRandomMovies = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 }
+
+
+export const getMovies = async (req, res) => {
+    try {
+     const movies = await Movie.aggregate([{ $sample: { size: 5 } }]);
+     res.status(200).json(movies);
+    }catch(error){
+        res.status(500).json({ message: error.message });
+    }
+}
+
+export const getMovie = async (req, res) => {
+    try {
+        const name= req.query.name;
+        const movies = await Movie.find({name: {$regex: name, $options: 'i'}});
+        res.status(200).json(movies);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}
