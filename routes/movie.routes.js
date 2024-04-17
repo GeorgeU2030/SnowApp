@@ -5,6 +5,6 @@ import { auth, authorize } from "../middlewares/auth.js";
 const router = express.Router();
 
 router.post("/createMovie", auth, authorize("admin"), createMovie);
-router.get("/getRandomMovies", auth, getRandomMovies)
+router.get("/getRandomMovies", getRandomMovies)
 
 export default router;
