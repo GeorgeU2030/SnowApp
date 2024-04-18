@@ -33,9 +33,13 @@ export const getRandomMovies = async (req, res) => {
 
 export const getMovies = async (req, res) => {
     try {
-     const movies = await Movie.aggregate([{ $sample: { size: 5 } }]);
-     res.status(200).json(movies);
-    }catch(error){
+        const movies = await Movie.aggregate([{ $sample: { size: 5 } }]);
+        const populatedMovies = await Movie.populate(movies, [
+            { path: 'directors', select: 'name -_id' },
+            { path: 'actors', select: 'name -_id' }
+        ]);
+        res.status(200).json(populatedMovies);
+    } catch (error) {
         res.status(500).json({ message: error.message });
     }
 }
