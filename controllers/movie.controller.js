@@ -53,3 +53,14 @@ export const getMovie = async (req, res) => {
         res.status(404).json({ message: error.message });
     }
 }
+
+export const getAMovie = async (req, res) => {
+    try{
+        const id = req.params.id;
+        const movie = await Movie.findById(id);
+        res.status(200).json(movie);
+    }catch(error){
+        res.status(404).json({ message: error.message });
+    }
+}
+
