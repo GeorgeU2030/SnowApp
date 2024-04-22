@@ -1,6 +1,7 @@
 import Movie from '../models/movie.schema.js';
 import Director from '../models/director.schema.js';
 import Actor from '../models/actor.schema.js';
+import Rating from '../models/rating.schema.js'
 
 export const createMovie = async (req, res) => {
     const newMovie = new Movie(req.body);
@@ -56,7 +57,7 @@ export const getMovie = async (req, res) => {
 
 export const getAMovie = async (req, res) => {
     try{
-        const id = req.params.id;
+        const id = req.params.movieid
         const movie = await Movie.findById(id);
         res.status(200).json(movie);
     }catch(error){
@@ -64,3 +65,26 @@ export const getAMovie = async (req, res) => {
     }
 }
 
+export const voteMovie = async (req, res) => {
+    try{
+        const id = req.params.movieid;
+        const userId = req.body.userId;
+        const points = req.body.points;
+        const movie = await Movie.findById(id);
+        movie.amount += 1;
+        movie.points += points;
+        await movie.save();
+
+        const rating = new Rating({
+            points: points,
+            movie: id,
+            user: userId
+        })
+
+        await rating.save();
+
+        res.status(200).json(movie);
+    }catch(error){
+        res.status(404).json({ message: error.message });
+    }
+}
