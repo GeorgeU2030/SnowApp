@@ -68,9 +68,11 @@ export const voteMovie = async (req, res) => {
         const id = req.params.movieid;
         const userId = req.body.userId;
         const points = req.body.points;
-        const movie = await Movie.findById(id);
+        const movie = await Movie.findById(id)
+            .populate('directors','name picture')
+            .populate('actors','name picture');
         movie.amount += 1;
-        movie.points += points;
+        movie.points = Math.round((movie.points + points) / movie.amount);
         await movie.save();
 
         const rating = new Rating({
