@@ -34,7 +34,7 @@ export const getRandomMovies = async (req, res) => {
 
 export const getMovies = async (req, res) => {
     try {
-        const movies = await Movie.aggregate([{ $sample: { size: 5 } }]);
+        const movies = await Movie.aggregate([{ $sample: { size: 8 } }]);
         res.status(200).json(movies);
     } catch (error) {
         res.status(500).json({ message: error.message });
