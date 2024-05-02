@@ -41,3 +41,17 @@ export const updateRating = async (req, res) => {
         res.status(404).json({ message: error.message });
     }
 }
+
+export const getMovieInRatings = async (req, res) => {
+    try {
+        const userId = req.params.userId;
+        const name = req.query.name;
+        const ratings = await Rating.find({ user: userId }).populate('movie').exec();
+        const filteredRatings = ratings.filter(rating =>
+            rating.movie.name.toLowerCase().includes(name.toLowerCase())
+        );
+        res.status(200).json(filteredRatings);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}
